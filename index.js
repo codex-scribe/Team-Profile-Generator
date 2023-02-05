@@ -5,7 +5,7 @@ const Employee = require('./lib/Employee');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const questions = [
+const managerQuestions = [
     {
         type: "input",
         message: "Please enter the name of the manager:",
@@ -28,17 +28,64 @@ const questions = [
       },
 ]
 
+const engineerQuestions =     [{
+    type: "input",
+    message: "Please enter the name of the engineer:",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's employee id:",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's email:",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's github username:",
+    name: "github",
+  },
+]
+
+const internQuestions =     [{
+    type: "input",
+    message: "Please enter the name of the intern:",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's employee id:",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's email:",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's school:",
+    name: "school",
+  },
+]
+
 const init = () => {
     fs.writeFile(
         "./db/employees.json", '[]',
         (err) => (err ? console.error(err) : console.log("success!"))
       )
-    inquirer.prompt(questions).then((data) => {
+    inquirer.prompt(managerQuestions).then((data) => {
         console.log(data);
         writeEmployees(data);
     }
     )
 }
+
+
+
 
 const writeEmployees = (newEmployee) => {
 
@@ -62,7 +109,22 @@ const addMoreOption = () => {
 }
 
 const addEmployee = () => {
-    console.log('you made it this far!');
+    inquirer.prompt({type: 'list', message: 'What is this employee\'s role?', choices: ['Engineer', 'Intern'], name: 'newRole'})
+    .then((response) => {
+        switch (response.newRole) {
+            case 'Engineer':
+                EngineerQuestions();
+                break;
+            case 'Intern':
+                InternQuestions;
+                break;
+        }
+
+    })
 }
+
+const engineerPrompts = () => {
+
+}
+
 init();
-//writeEmployees();
