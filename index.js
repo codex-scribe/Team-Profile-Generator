@@ -104,7 +104,9 @@ const addMoreOption = () => {
     .then((response) => {
         if (response.addAnother == 'yes') {
             addEmployee();
-        } else {}
+        } else {
+            writeEmployeesFinal();
+        }
     })
 }
 
@@ -113,10 +115,10 @@ const addEmployee = () => {
     .then((response) => {
         switch (response.newRole) {
             case 'Engineer':
-                EngineerQuestions();
+                engineerPrompts();
                 break;
             case 'Intern':
-                InternQuestions;
+                internPrompts();
                 break;
         }
 
@@ -124,7 +126,36 @@ const addEmployee = () => {
 }
 
 const engineerPrompts = () => {
+    inquirer.prompt(engineerQuestions).then((data) => {
+        console.log(data);
+        writeEmployees(data);
+    })
+}
 
+const internPrompts = () => {
+    inquirer.prompt(internQuestions).then((data) => {
+        console.log(data);
+        writeEmployees(data);
+    })
+}
+
+const writeEmployeesFinal = (newEmployee) => {
+
+    let employeeList = fs.readFileSync("./db/employees.json");
+    let elArray = JSON.parse(employeeList);
+    elArray.push(newEmployee);
+    employeeList = JSON.stringify(elArray);
+    fs.writeFile(`./db/employees.json`, employeeList, (err) => err
+        ? console.error(err)
+        : console.log('New Employee has been written to JSON file!'));
+    createPage();
+}
+
+const createPage = () => {
+    fs.writeFile(`index.html`, 
+    (err) => err
+        ? console.error(err)
+        : console.log('New Employee Team Page has been generated!'))
 }
 
 init();
