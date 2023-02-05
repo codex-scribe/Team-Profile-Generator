@@ -5,6 +5,7 @@ const Employee = require('./lib/Employee');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+//Sets of questions for the inquirer prompts
 const managerQuestions = [
     {
         type: "input",
@@ -72,21 +73,24 @@ const internQuestions =     [{
   },
 ]
 
+//logic to run when page initializes
 const init = () => {
     fs.writeFile(
         "./db/employees.json", '[]',
         (err) => (err ? console.error(err) : console.log("success!"))
       )
+      //Manager questions
     inquirer.prompt(managerQuestions).then((data) => {
-        console.log(data);
-        writeEmployees(data);
+        const manager = new Manager (data.name, data.id, data.email, data.officeNumber);
+        console.log(manager);
+        writeEmployees(manager);
     }
     )
 }
 
 
 
-
+//Writes data proved by user to a file
 const writeEmployees = (newEmployee) => {
 
     let employeeList = fs.readFileSync("./db/employees.json");
@@ -99,17 +103,19 @@ const writeEmployees = (newEmployee) => {
     addMoreOption();
 }
 
+//asks if the user would like to add another employee
 const addMoreOption = () => {
     inquirer.prompt({type: 'list', message: 'Do you want to add another employee?', choices: ['yes', 'no'], name: 'addAnother'})
     .then((response) => {
         if (response.addAnother == 'yes') {
             addEmployee();
         } else {
-            writeEmployeesFinal();
+            createPage();
         }
     })
 }
 
+//
 const addEmployee = () => {
     inquirer.prompt({type: 'list', message: 'What is this employee\'s role?', choices: ['Engineer', 'Intern'], name: 'newRole'})
     .then((response) => {
@@ -127,33 +133,28 @@ const addEmployee = () => {
 
 const engineerPrompts = () => {
     inquirer.prompt(engineerQuestions).then((data) => {
-        console.log(data);
-        writeEmployees(data);
+        const engineer = new Engineer (data.name, data.id, data.email, data.github);
+        writeEmployees(engineer);
     })
 }
 
 const internPrompts = () => {
     inquirer.prompt(internQuestions).then((data) => {
-        console.log(data);
-        writeEmployees(data);
+        const intern = new Intern (data.name, data.id, data.email, data.school);
+        writeEmployees(intern);
     })
 }
 
-const writeEmployeesFinal = (newEmployee) => {
-
-    let employeeList = fs.readFileSync("./db/employees.json");
-    let elArray = JSON.parse(employeeList);
-    elArray.push(newEmployee);
-    employeeList = JSON.stringify(elArray);
-    fs.writeFile(`./db/employees.json`, employeeList, (err) => err
-        ? console.error(err)
-        : console.log('New Employee has been written to JSON file!'));
-    createPage();
-}
-
 const createPage = () => {
-    fs.writeFile(`index.html`, 
-    (err) => err
+    
+    fs.writeFile(`index.html`, `
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    `,(err) => err
         ? console.error(err)
         : console.log('New Employee Team Page has been generated!'))
 }
