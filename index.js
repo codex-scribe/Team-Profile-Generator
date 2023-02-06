@@ -146,7 +146,6 @@ const internPrompts = () => {
 }
 
 const createPage = () => {
-    
     fs.writeFile(`index.html`, `
     <!DOCTYPE html>
     <html lang="en">
@@ -154,6 +153,30 @@ const createPage = () => {
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+        </head>
+        <header>
+        <title>Team Profile Page</title>
+        <nav class="navbar navbar-emp">
+        <h5>Employee List</h5></nav> </header
+        <body>
+        <div class="row border-dark" id="card-area">
+
+
+
+        </div>  
+        </body>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+    integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+    crossorigin="anonymous"
+  ></script>
+</html>
     `,(err) => err
         ? console.error(err)
         : console.log('New Employee Team Page has been generated!'))
