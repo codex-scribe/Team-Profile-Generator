@@ -21,7 +21,7 @@ let pageHTML = `<!DOCTYPE html>
     <header>
     <title>Team Profile Page</title>
     <nav class="navbar navbar-emp">
-    <h5>Employee List</h5></nav> </header
+    <h5>Employee List</h5></nav> </header>
     <body>
     <div class="row border-dark" id="card-area">
     <div class='text-white bg-secondary mb-3' style='min-width: 20rem'> `;
@@ -168,7 +168,7 @@ const internPrompts = () => {
 
 const createPage = () => {
   for (let i = 0; i < employeeArray.length; i++) {
-    var currentEmployee = elArray[i];
+    var currentEmployee = employeeArray[i];
     let empString = `<div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.class} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
     pageHTML = pageHTML.concat(empString);
     if (currentEmployee.officeNumber) {
@@ -185,7 +185,7 @@ const createPage = () => {
       );
     }
   }
-  pageHTML = pageHTML.concat(`</div></div><script
+  pageHTML = pageHTML.concat(`</div></div></body><script
 src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
 integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
 crossorigin="anonymous"
