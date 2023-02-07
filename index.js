@@ -23,7 +23,8 @@ let pageHTML = `<!DOCTYPE html>
     <nav class="navbar navbar-emp">
     <h5>Employee List</h5></nav> </header
     <body>
-    <div class="row border-dark" id="card-area">`
+    <div class="row border-dark" id="card-area">
+    <div class='text-white bg-secondary mb-3' style='min-width: 20rem'> `;
 
 //Sets of questions for the inquirer prompts
 const managerQuestions = [
@@ -166,65 +167,32 @@ const internPrompts = () => {
 };
 
 const createPage = () => {
-  fs.writeFile(
-    `index.html`,
-    `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-      crossorigin="anonymous"
-    />
-        </head>
-        <header>
-        <title>Team Profile Page</title>
-        <nav class="navbar navbar-emp">
-        <h5>Employee List</h5></nav> </header
-        <body>
-        <div class="row border-dark" id="card-area">
-
-
-
-        </div>  
-        </body>
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-    integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-    crossorigin="anonymous"
-  ></script>
-</html>
-    `,
-    (err) =>
-      err
-        ? console.error(err)
-        : console.log("New Employee Team Page has been generated!")
-  );
-  let employeeList = fs.readFileSync("./db/employees.json");
-  let elArray = JSON.parse(employeeList);
-  console.log(employeeList);
-  console.log(elArray);
-  for (var i = 0; i < elArray.length; i++) {
-    var Employee = elArray[i];
-    if (Employee.officeNumber) {
-    //console.log(Employee);
-    var newCardHeader = document.createElement("div");
-    newCardHeader.className = "card text-white bg-secondary mb-3";
-    newCardHeader.setAttribute("style", "min-width: 20rem");
-    newCardHeader.innerHTML = `
-              <div class="card-header emp-head">${Employee.name} <br> Manager</div>
-              <div class="card-body emp-body">
-              <h4 class="card-text">Id: ${Employee.id}</h4>
-              <p>Days Available: ${Employee.daysAvail}</p>
-              </div> `;
-    cardArea.appendChild(newCardHeader);}
-
+  for (let i = 0; i < employeeArray.length; i++) {
+    var currentEmployee = elArray[i];
+    let empString = `<div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.class} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
+    pageHTML = pageHTML.concat(empString);
+    if (currentEmployee.officeNumber) {
+      pageHTML = pageHTML.concat(
+        `<p>Office Number: ${currentEmployee.officeNumber} </p> </div>`
+      );
+    } else if (currentEmployee.github) {
+      pageHTML = pageHTML.concat(
+        `<p>Github: ${currentEmployee.github} </p> </div>`
+      );
+    } else if (currentEmployee.school) {
+      pageHTML = pageHTML.concat(
+        `<p>School: ${currentEmployee.school} </p> </div>`
+      );
+    }
   }
+  pageHTML = pageHTML.concat(`</div></div><script
+src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+crossorigin="anonymous"
+></script>
+</html>`);
+fs.writeFile('./dist/index.html', pageHTML, (err) =>
+err ? console.error(err) : console.log('Success!'))
 };
 
 init();
