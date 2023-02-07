@@ -10,21 +10,20 @@ let pageHTML = `<!DOCTYPE html>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-  integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-  crossorigin="anonymous"
-/>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     </head>
     <header>
     <title>Team Profile Page</title>
     <nav class="navbar navbar-emp">
-    <h5>Employee List</h5></nav> </header>
+    <span class="navbar-brand mb-0 h1">Team Profiles</span></nav> </header>
     <body>
-    <div class="row border-dark" id="card-area">
-    <div class='text-white bg-secondary mb-3' style='min-width: 20rem'> `;
+    <div class="row border-dark" id="card-area">`;
 
 //Sets of questions for the inquirer prompts
 const managerQuestions = [
@@ -169,28 +168,39 @@ const internPrompts = () => {
 const createPage = () => {
   for (let i = 0; i < employeeArray.length; i++) {
     var currentEmployee = employeeArray[i];
-    let empString = `<div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.class} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
+    console.log(currentEmployee);
+    let empString = `<div class="text-white bg-secondary m-3 rounded" style="min-width: 20rem"><div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.class} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
     pageHTML = pageHTML.concat(empString);
     if (currentEmployee.officeNumber) {
       pageHTML = pageHTML.concat(
-        `<p>Office Number: ${currentEmployee.officeNumber} </p> </div>`
+        `<p>Office Number: ${currentEmployee.officeNumber} </p> </div></div>`
       );
     } else if (currentEmployee.github) {
       pageHTML = pageHTML.concat(
-        `<p>Github: ${currentEmployee.github} </p> </div>`
+        `<p>Github: ${currentEmployee.github} </p> </div></div>`
       );
     } else if (currentEmployee.school) {
       pageHTML = pageHTML.concat(
-        `<p>School: ${currentEmployee.school} </p> </div>`
+        `<p>School: ${currentEmployee.school} </p> </div></div>`
       );
     }
   }
-  pageHTML = pageHTML.concat(`</div></div></body><script
-src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-crossorigin="anonymous"
+  pageHTML = pageHTML.concat(`</div></div><script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"
 ></script>
-</html>`);
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+</body></html>`);
 fs.writeFile('./dist/index.html', pageHTML, (err) =>
 err ? console.error(err) : console.log('Success!'))
 };
