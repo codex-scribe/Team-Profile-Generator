@@ -1,4 +1,4 @@
-# Team-Profile-Generator
+# Team Profile Generator
 
 ## Description
 This command-line application provides an easy way for users to create a webpage for their staff of employees.  Upon completion, a new html page is generated, displaying all the current employees and details about them.  The several roles available are Manager, Engineer, and Intern, with different details about each one.
