@@ -15,7 +15,7 @@ Any terminal/command line application is adequate to use this program.  You must
 
 ## Demonstration
 The following video shows the use of the application:
-![Demonstration video](https://drive.google.com/file/d/1QI5R_TrD7pBWS0Q4vq69BMGCn033VXu2/view)
+[Demonstration video](https://drive.google.com/file/d/1QI5R_TrD7pBWS0Q4vq69BMGCn033VXu2/view)
 
 ## Creator
 This application was created by Matt Brandenburgh.  It can be found at github.com/codex-scribe.  Contact him there for any further questions.
