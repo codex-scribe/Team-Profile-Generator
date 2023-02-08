@@ -7,8 +7,7 @@ test('Can instatiate an Employee', ()=>{
 test('Can set name', () => {
     expect(joe.name).toBe('Joe');
 });
-// test('Can set id', )
-// test('Can set email',)
+
 test('getName method returns the name', () => {
     expect(joe.getName()).toBe('Joe');
 })

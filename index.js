@@ -23,7 +23,7 @@ let pageHTML = `<!DOCTYPE html>
     <nav class="navbar navbar-emp">
     <span class="navbar-brand mb-0 h1">Team Profiles</span></nav> </header>
     <body>
-    <div class="row border-dark" id="card-area">`;
+    <div class="row border-dark p-2" id="card-area">`;
 
 //Sets of questions for the inquirer prompts
 const managerQuestions = [
@@ -169,7 +169,7 @@ const createPage = () => {
   for (let i = 0; i < employeeArray.length; i++) {
     var currentEmployee = employeeArray[i];
     console.log(currentEmployee);
-    let empString = `<div class="text-white bg-secondary m-3 rounded" style="min-width: 20rem"><div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.class} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
+    let empString = `<div class="text-white bg-secondary m-3 rounded" style="min-width: 20rem"><div class='card-header emp-head'>${currentEmployee.name} <br> ${currentEmployee.constructor.name} </div> <div class='card-body emp-body'> <p>ID: ${currentEmployee.id} </p> <p>email: ${currentEmployee.email} </p>`;
     pageHTML = pageHTML.concat(empString);
     if (currentEmployee.officeNumber) {
       pageHTML = pageHTML.concat(
